@@ -1,0 +1,8 @@
+﻿# Local Netlify folder
+.netlify
+
+# Local SEO regeneration backups / previews
+og-image.original.png
+_og_preview.jpg
+_og_test.jpg
+_og_new_preview.jpg

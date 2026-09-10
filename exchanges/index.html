@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <title>Ordyn — Request an Exchange / Become a Tester</title>
+  <meta name="description" content="Vote for the exchange you want Ordyn to support, or join the tester program and get Ordyn Pro for life for helping validate an integration.">
+  <meta property="og:title" content="Ordyn — Request an Exchange">
+  <meta property="og:description" content="Tell us which exchange to add next — or help us validate one and get Ordyn Pro for life.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://ordyn.io/og-image.png">
+  <link rel="canonical" href="https://ordyn.io/exchanges">
+  <meta property="og:url" content="https://ordyn.io/exchanges">
+  <meta property="og:site_name" content="Ordyn">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ordyn — Request an Exchange">
+  <meta name="twitter:description" content="Tell us which exchange to add next — or help us validate one and get Ordyn Pro for life.">
+  <meta name="twitter:image" content="https://ordyn.io/og-image.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #08090C;
+      --bg-elevated: #0E1117;
+      --bg-card: rgba(14, 17, 23, 0.6);
+      --bg-card-solid: #12151C;
+      --cyan: #00D4FF;
+      --cyan-soft: #00B8E6;
+      --cyan-glow: rgba(0, 212, 255, 0.08);
+      --cyan-glow-strong: rgba(0, 212, 255, 0.15);
+      --cyan-border: rgba(0, 212, 255, 0.2);
+      --green: #00C48C;
+      --orange: #FF9500;
+      --red: #FF4D4D;
+      --purple: #7C3AED;
+      --text: #F0F0F0;
+      --text-secondary: #8A8F98;
+      --text-dim: #4A4F5A;
+      --border: rgba(255, 255, 255, 0.06);
+      --border-hover: rgba(255, 255, 255, 0.12);
+    }
+
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: var(--cyan); text-decoration: none; }
+    a:hover { color: var(--cyan-soft); }
+
+    .wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    .site-header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(8, 9, 12, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .site-header .wrap {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-size: 20px; color: var(--text);
+      letter-spacing: -0.02em;
+    }
+    .logo span { color: var(--cyan); }
+
+    /* Hero */
+    .hero { padding: 72px 0 40px; text-align: center; }
+    .eyebrow {
+      display: inline-block;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--cyan);
+      background: var(--cyan-glow); border: 1px solid var(--cyan-border);
+      border-radius: 999px; padding: 6px 14px; margin-bottom: 20px;
+    }
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(30px, 6vw, 46px); font-weight: 700;
+      letter-spacing: -0.03em; line-height: 1.12; margin-bottom: 16px;
+    }
+    .lede {
+      color: var(--text-secondary); font-size: 17px;
+      max-width: 620px; margin: 0 auto;
+    }
+
+    /* Live venues */
+    .venues { padding: 24px 0 8px; }
+    .venue-grid {
+      display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+    }
+    .venue {
+      font-size: 13px; font-weight: 600;
+      padding: 7px 14px; border-radius: 999px;
+      border: 1px solid var(--border); background: var(--bg-card-solid);
+      color: var(--text-secondary);
+    }
+    .venue.live { color: var(--green); border-color: rgba(0, 196, 140, 0.3); }
+    .venue.live::before { content: '● '; }
+    .venue.soon { color: var(--text-dim); }
+
+    /* Sections */
+    section { padding: 44px 0; }
+    .card {
+      background: var(--bg-card-solid);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 32px;
+    }
+    .card + .card { margin-top: 22px; }
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px; font-weight: 700; letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+    .card p.sub { color: var(--text-secondary); font-size: 15px; margin-bottom: 24px; }
+
+    /* Perk callout */
+    .perk {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.10), rgba(0, 212, 255, 0.06));
+      border: 1px solid rgba(124, 58, 237, 0.28);
+      border-radius: 14px; padding: 18px 20px; margin-bottom: 26px;
+    }
+    .perk-icon { font-size: 22px; line-height: 1.2; }
+    .perk-title { font-weight: 700; margin-bottom: 3px; }
+    .perk-body { color: var(--text-secondary); font-size: 14px; }
+
+    /* Steps */
+    ol.steps { list-style: none; counter-reset: s; margin: 0 0 26px; }
+    ol.steps li {
+      counter-increment: s; position: relative;
+      padding-left: 42px; margin-bottom: 14px;
+      color: var(--text-secondary); font-size: 15px;
+    }
+    ol.steps li::before {
+      content: counter(s);
+      position: absolute; left: 0; top: 1px;
+      width: 26px; height: 26px; border-radius: 8px;
+      background: var(--cyan-glow); border: 1px solid var(--cyan-border);
+      color: var(--cyan); font-size: 13px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    ol.steps strong { color: var(--text); font-weight: 600; }
+
+    /* Forms */
+    .field { margin-bottom: 16px; }
+    label {
+      display: block; font-size: 13px; font-weight: 600;
+      color: var(--text-secondary); margin-bottom: 7px;
+    }
+    input[type=text], input[type=email], select, textarea {
+      width: 100%; font-family: inherit; font-size: 15px; color: var(--text);
+      background: var(--bg); border: 1px solid var(--border-hover);
+      border-radius: 11px; padding: 12px 14px; outline: none;
+      transition: border-color 0.15s;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--cyan); }
+    input::placeholder, textarea::placeholder { color: var(--text-dim); }
+    textarea { resize: vertical; min-height: 84px; }
+    select { appearance: none; cursor: pointer; }
+    .row { display: flex; gap: 14px; }
+    .row .field { flex: 1; }
+    @media (max-width: 560px) { .row { flex-direction: column; gap: 0; } }
+
+    .checkline {
+      display: flex; gap: 10px; align-items: flex-start;
+      font-size: 14px; color: var(--text-secondary); margin-bottom: 18px;
+    }
+    .checkline input { margin-top: 4px; accent-color: var(--cyan); }
+
+    button.submit {
+      width: 100%; cursor: pointer; font-family: inherit;
+      font-size: 15px; font-weight: 700; color: #041014;
+      background: linear-gradient(135deg, var(--cyan), var(--cyan-soft));
+      border: none; border-radius: 12px; padding: 15px;
+      transition: transform 0.12s, box-shadow 0.2s;
+    }
+    button.submit:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(0, 212, 255, 0.22);
+    }
+
+    .note {
+      font-size: 13px; color: var(--text-dim);
+      margin-top: 14px; text-align: center;
+    }
+
+    /* What testing involves */
+    .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 24px; }
+    .fact { border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+    .fact-k { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); margin-bottom: 5px; }
+    .fact-v { font-size: 15px; font-weight: 600; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0 48px; text-align: center;
+      color: var(--text-dim); font-size: 13px;
+    }
+    footer a { margin: 0 10px; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a href="/" class="logo">ORD<span>Y</span>N</a>
+      <a href="/" style="font-size:14px;font-weight:600;">← Back to site</a>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+    <div class="hero">
+      <span class="eyebrow">Exchange Roadmap</span>
+      <h1>Which exchange should we add next?</h1>
+      <p class="lede">
+        Ordyn connects to the accounts you already have. Tell us where you trade
+        and we'll prioritise it — or help us validate an integration and get
+        Ordyn Pro for life.
+      </p>
+    </div>
+
+    <div class="venues">
+      <div class="venue-grid">
+        <span class="venue live">Hyperliquid</span>
+        <span class="venue live">gTrade</span>
+        <span class="venue live">Bitget</span>
+        <span class="venue live">Bitunix</span>
+        <span class="venue soon">Bybit — in testing</span>
+        <span class="venue soon">Binance — in testing</span>
+        <span class="venue soon">OKX — in testing</span>
+        <span class="venue soon">MEXC — in testing</span>
+        <span class="venue soon">Coinbase — in testing</span>
+      </div>
+    </div>
+
+    <!-- ───────────── Request an exchange ───────────── -->
+    <section id="request">
+      <div class="card">
+        <h2>Request an exchange</h2>
+        <p class="sub">
+          Every request is counted. The venues our traders actually use get built first.
+        </p>
+
+        <form name="exchange-request" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/success">
+          <input type="hidden" name="form-name" value="exchange-request">
+          <p style="display:none;"><label>Don't fill this out: <input name="bot-field"></label></p>
+
+          <div class="row">
+            <div class="field">
+              <label for="req-exchange">Exchange</label>
+              <input id="req-exchange" type="text" name="exchange" placeholder="e.g. Kraken, KuCoin, Gate.io" required>
+            </div>
+            <div class="field">
+              <label for="req-email">Your email</label>
+              <input id="req-email" type="email" name="email" placeholder="you@email.com" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="req-why">What do you trade there? <span style="color:var(--text-dim);font-weight:400;">(optional)</span></label>
+            <textarea id="req-why" name="details" placeholder="Perps or spot? Which pairs? Roughly how often do you trade?"></textarea>
+          </div>
+
+          <button class="submit" type="submit">Request this exchange</button>
+          <p class="note">No spam. We'll email you when it goes live.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ───────────── Tester programme ───────────── -->
+    <section id="tester">
+      <div class="card">
+        <h2>Become an integration tester</h2>
+        <p class="sub">
+          We build every integration against the exchange's real API — but we
+          won't ship one that nobody has traded on. That's where you come in.
+        </p>
+
+        <div class="perk">
+          <div class="perk-icon">🎁</div>
+          <div>
+            <div class="perk-title">Ordyn Pro — free, for life</div>
+            <div class="perk-body">
+              Complete a validation pass on an exchange we're preparing and you
+              get a lifetime Pro account. Only 500 lifetime spots exist.
+            </div>
+          </div>
+        </div>
+
+        <div class="facts">
+          <div class="fact">
+            <div class="fact-k">Time needed</div>
+            <div class="fact-v">About an hour</div>
+          </div>
+          <div class="fact">
+            <div class="fact-k">Capital at risk</div>
+            <div class="fact-v">$20–50, minimum size</div>
+          </div>
+          <div class="fact">
+            <div class="fact-k">What you follow</div>
+            <div class="fact-v">A written checklist</div>
+          </div>
+        </div>
+
+        <ol class="steps">
+          <li><strong>You already have a funded futures account</strong> on an exchange we're preparing, in a region where it operates.</li>
+          <li><strong>We send you the checklist</strong> — a step-by-step script covering orders, stop-losses, take-profits, partial closes and P&amp;L accuracy. No coding, no guesswork.</li>
+          <li><strong>You run it on minimum size</strong> with the exchange open beside Ordyn, and record where the two disagree.</li>
+          <li><strong>You send the results back.</strong> We fix what you found, and your lifetime account is activated.</li>
+        </ol>
+
+        <form name="exchange-tester" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/success">
+          <input type="hidden" name="form-name" value="exchange-tester">
+          <p style="display:none;"><label>Don't fill this out: <input name="bot-field"></label></p>
+
+          <div class="row">
+            <div class="field">
+              <label for="t-email">Your email</label>
+              <input id="t-email" type="email" name="email" placeholder="you@email.com" required>
+            </div>
+            <div class="field">
+              <label for="t-exchange">Exchange you can test</label>
+              <select id="t-exchange" name="exchange" required>
+                <option value="">Select…</option>
+                <option>Bybit</option>
+                <option>Binance</option>
+                <option>OKX</option>
+                <option>MEXC</option>
+                <option>Coinbase (US perps)</option>
+                <option>Kraken</option>
+                <option>KuCoin</option>
+                <option>Gate.io</option>
+                <option>Other — I'll specify below</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="t-region">Country / region</label>
+              <input id="t-region" type="text" name="region" placeholder="e.g. UK, Germany, Singapore" required>
+            </div>
+            <div class="field">
+              <label for="t-platform">Your device</label>
+              <select id="t-platform" name="platform" required>
+                <option value="">Select…</option>
+                <option>iPhone</option>
+                <option>Android</option>
+                <option>Both</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="t-exp">Trading experience <span style="color:var(--text-dim);font-weight:400;">(optional)</span></label>
+            <textarea id="t-exp" name="experience" placeholder="How long have you traded perps? Anything else we should know?"></textarea>
+          </div>
+
+          <label class="checkline">
+            <input type="checkbox" name="confirm_funded" value="yes" required>
+            <span>I have a funded futures account on the exchange I selected, and I understand testing involves placing small real orders with my own funds.</span>
+          </label>
+
+          <button class="submit" type="submit">Apply to be a tester</button>
+          <p class="note">
+            <strong>We will never ask you to send us your API keys.</strong> You connect your own exchange inside the app, using keys you create yourself — trade permission only, never withdrawal access. Ordyn never holds your funds.
+          </p>
+        </form>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <a href="/">Home</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="https://discord.gg/NqchGpsCeC">Discord</a>
+      <p style="margin-top:14px;">© Ordyn — Order Dynamics Inc.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

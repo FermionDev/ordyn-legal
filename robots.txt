@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+Disallow: /manage
+Disallow: /success
+Disallow: /delete-account
+Disallow: /welcome
+Disallow: /plan
+Disallow: /ref
+Disallow: /affiliate
+Disallow: /verify
+Disallow: /admin
+
+Sitemap: https://ordyn.io/sitemap.xml

@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <title>Getting Started — Ordyn</title>
+  <meta name="description" content="Step-by-step guide to set up Ordyn: create your wallet, fund your account, and place your first trade on Hyperliquid, gTrade, Bitget, or Bitunix.">
+  <meta property="og:title" content="Getting Started — Ordyn">
+  <meta property="og:description" content="Step-by-step guide to set up Ordyn and start trading on Hyperliquid, gTrade, Bitget, and Bitunix.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://ordyn.io/og-image.png">
+  <link rel="canonical" href="https://ordyn.io/guide">
+  <meta property="og:url" content="https://ordyn.io/guide">
+  <meta property="og:site_name" content="Ordyn">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Getting Started — Ordyn">
+  <meta name="twitter:description" content="Step-by-step guide to set up Ordyn and start trading on Hyperliquid, gTrade, Bitget, and Bitunix.">
+  <meta name="twitter:image" content="https://ordyn.io/og-image.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Manrope:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0B0E11;
+      --bg-card: #141820;
+      --bg-card-hover: #1A2030;
+      --cyan: #00D4FF;
+      --cyan-glow: rgba(0, 212, 255, 0.15);
+      --cyan-border: rgba(0, 212, 255, 0.3);
+      --green: #00C48C;
+      --orange: #FF9500;
+      --red: #FF4D4D;
+      --purple: #6A0DAD;
+      --text: #FFFFFF;
+      --text-secondary: #A3A3A3;
+      --text-dim: #666;
+    }
+
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Manrope', system-ui, sans-serif;
+      line-height: 1.7;
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(11, 14, 17, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--cyan);
+      text-shadow: 0 0 12px rgba(0, 212, 255, 0.6);
+      text-decoration: none;
+    }
+    .nav-logo img { width: 32px; height: 32px; border-radius: 8px; }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--cyan); }
+    .nav-cta {
+      background: var(--cyan) !important;
+      color: var(--bg) !important;
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-weight: 700 !important;
+      font-size: 13px !important;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* ── LAYOUT ── */
+    .guide-container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 120px 24px 80px;
+    }
+
+    /* ── HEADER ── */
+    .guide-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .guide-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--cyan-glow);
+      border: 1px solid var(--cyan-border);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      color: var(--cyan);
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .guide-header h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+    .guide-header p {
+      color: var(--text-secondary);
+      font-size: 17px;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    /* ── PHASE ── */
+    .phase {
+      margin-bottom: 56px;
+    }
+    .phase-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--cyan);
+      margin-bottom: 8px;
+    }
+    .phase-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(22px, 4vw, 30px);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 24px;
+    }
+
+    /* ── STEP ── */
+    .step {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 20px;
+      transition: border-color 0.2s;
+    }
+    .step:hover {
+      border-color: rgba(0, 212, 255, 0.15);
+    }
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    .step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .step-number.cyan { background: rgba(0, 212, 255, 0.12); color: var(--cyan); }
+    .step-number.green { background: rgba(0, 196, 140, 0.12); color: var(--green); }
+    .step-number.orange { background: rgba(255, 149, 0, 0.12); color: var(--orange); }
+    .step-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+    }
+    .step-body {
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.75;
+    }
+    .step-body strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .step-body ul {
+      margin: 10px 0 0 0;
+      padding-left: 20px;
+    }
+    .step-body li {
+      margin-bottom: 6px;
+    }
+
+    /* ── TIP BOX ── */
+    .tip {
+      background: rgba(0, 212, 255, 0.06);
+      border: 1px solid rgba(0, 212, 255, 0.12);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-top: 14px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    .tip-label {
+      color: var(--cyan);
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .warning {
+      background: rgba(255, 149, 0, 0.06);
+      border-color: rgba(255, 149, 0, 0.15);
+    }
+    .warning .tip-label { color: var(--orange); }
+
+    /* ── DIVIDER ── */
+    .phase-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0,212,255,0.15), transparent);
+      margin: 48px 0;
+    }
+
+    /* ── FOOTER CTA ── */
+    .guide-cta {
+      text-align: center;
+      padding: 48px 0 0;
+    }
+    .guide-cta h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .guide-cta p {
+      color: var(--text-secondary);
+      font-size: 15px;
+      margin-bottom: 24px;
+    }
+    .guide-cta a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--cyan);
+      color: var(--bg);
+      padding: 14px 32px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .guide-cta a:hover { opacity: 0.85; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--text-dim);
+      font-size: 13px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      margin-top: 64px;
+    }
+    footer a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+    footer a:hover { color: var(--cyan); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 12px 16px; }
+      .nav-links { gap: 16px; }
+      .guide-container { padding: 100px 16px 60px; }
+      .step { padding: 20px; }
+    }
+    @media (max-width: 480px) {
+      .nav-links a:not(.nav-cta) { display: none; }
+      .step-header { gap: 12px; }
+      .step-title { font-size: 17px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">
+      <img src="/app-icon.png" alt="Ordyn">
+      Ordyn
+    </a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/guide" style="color: var(--cyan);">Guide</a>
+      <a href="/#features">Features</a>
+      <a href="/#beta" class="nav-cta">Download</a>
+    </div>
+  </nav>
+
+  <div class="guide-container">
+
+    <!-- HEADER -->
+    <div class="guide-header">
+      <div class="guide-badge">Step-by-step guide</div>
+      <h1>Getting Started with Ordyn</h1>
+      <p>From zero to your first trade in under 10 minutes. This guide walks you through setting up your wallet, funding your account, and placing your first trade on any supported exchange.</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════ PHASE 1 ═══ -->
+    <div class="phase">
+      <div class="phase-label">Phase 1</div>
+      <h2 class="phase-title">Set Up Your Wallet</h2>
+
+      <!-- Step 1 -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number cyan">1</div>
+          <div class="step-title">Create or connect a wallet</div>
+        </div>
+        <div class="step-body">
+          After signing up, go to the <strong>Profile</strong> tab and tap the wallet card. You have two options:
+          <ul>
+            <li><strong>Create a new wallet</strong> — Sign in with email, Google, or Apple via Web3Auth. Ordyn creates a non-custodial wallet for you automatically.</li>
+            <li><strong>Connect an existing wallet</strong> — Use WalletConnect to link MetaMask, Rainbow, or any WalletConnect-compatible wallet.</li>
+          </ul>
+          <div class="tip">
+            <div class="tip-label">Multi-chain wallet</div>
+            One seed phrase gives you wallets on every supported EVM chain (Arbitrum, Ethereum, Polygon, Optimism, Base) — used for Hyperliquid, gTrade, swapping, and bridging. All addresses are derived automatically — no extra setup needed.
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number cyan">2</div>
+          <div class="step-title">Back up your seed phrase</div>
+        </div>
+        <div class="step-body">
+          If you created a new wallet, <strong>back up your seed phrase immediately</strong>. On the wallet card, tap <strong>Back Up</strong> and write down the 12 words.
+          <br><br>
+          Store them somewhere safe — a physical notebook, not a screenshot. This is the <strong>only way to recover your funds</strong> if you lose access to your device.
+          <div class="tip warning">
+            <div class="tip-label">Important</div>
+            Never share your seed phrase with anyone. Ordyn will never ask for it. Anyone who has these words can access your funds.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-divider"></div>
+
+    <!-- ═══════════════════════════════════════ PHASE 2 ═══ -->
+    <div class="phase">
+      <div class="phase-label">Phase 2</div>
+      <h2 class="phase-title">Fund Your Account</h2>
+
+      <!-- Step 3 -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number green">3</div>
+          <div class="step-title">Get crypto into your wallet</div>
+        </div>
+        <div class="step-body">
+          Your wallet needs funds before you can trade. On the wallet card, you have two options:
+          <ul>
+            <li><strong>Buy with card</strong> — Tap <strong>Buy</strong> to purchase crypto directly with a debit or credit card via our onramp partner.</li>
+            <li><strong>Send from another wallet</strong> — Tap <strong>Receive</strong> to copy your wallet address. Send ETH, USDC, or any token on Ethereum, Arbitrum, Base, or Polygon.</li>
+          </ul>
+          <div class="tip">
+            <div class="tip-label">Recommended</div>
+            If buying with card, purchase <strong>USDC on Arbitrum</strong>. It works directly for Hyperliquid and as collateral for gTrade. Bitget and Bitunix balances live on the centralized exchange — fund those through their own apps.
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number green">4</div>
+          <div class="step-title">Swap to USDC</div>
+        </div>
+        <div class="step-body">
+          All supported DEXs use <strong>USDC as collateral</strong> for trades. If you have ETH or another token, you need to swap it to USDC first.
+          <br><br>
+          Go to the <strong>DEX</strong> tab and tap <strong>Swap</strong>. Select your token (e.g. ETH) and swap it to USDC. The swap happens on-chain and takes a few seconds.
+          <div class="tip">
+            <div class="tip-label">Note</div>
+            Keep a small amount of ETH for gas fees (about $1–2 is enough). Ordyn uses Arbitrum where gas is very cheap.
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number green">5</div>
+          <div class="step-title">Fund your exchange</div>
+        </div>
+        <div class="step-body">
+          Each exchange works a little differently:
+          <ul>
+            <li><strong>Hyperliquid</strong> — Tap <strong>Fund Hyperliquid</strong> in the DEX tab. Ordyn bridges any EVM token (Arbitrum, Ethereum, Polygon, Optimism, Base) into USDC on Arbitrum and deposits it to your HL margin account (~1–3 min).</li>
+            <li><strong>gTrade</strong> — No deposit needed. gTrade is non-custodial — just hold USDC, DAI, or WETH in your Ordyn wallet on Arbitrum, Polygon, or Base. The contract pulls collateral when you open a trade.</li>
+            <li><strong>Bitget</strong> — Fund through the Bitget app or website. Balance syncs into Ordyn via API keys.</li>
+            <li><strong>Bitunix</strong> — Fund through the Bitunix app or website. Balance syncs into Ordyn via API keys.</li>
+          </ul>
+          <div class="tip">
+            <div class="tip-label">How it works</div>
+            For Hyperliquid, Ordyn handles the bridge automatically — keep the app open during the ~2 minute transfer. For gTrade, you never deposit — your wallet is the margin account. For Bitget and Bitunix, deposits happen on their platforms and balances appear in Ordyn once funded.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-divider"></div>
+
+    <!-- ═══════════════════════════════════════ PHASE 3 ═══ -->
+    <div class="phase">
+      <div class="phase-label">Phase 3</div>
+      <h2 class="phase-title">Start Trading</h2>
+
+      <!-- Step 6 -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number orange">6</div>
+          <div class="step-title">Log your first trade</div>
+        </div>
+        <div class="step-body">
+          Go to the <strong>Log</strong> tab. This is where you plan and execute trades:
+          <ul>
+            <li>Pick your <strong>exchange</strong> — Hyperliquid, gTrade, Bitget, or Bitunix</li>
+            <li>Select a <strong>trading pair</strong> (e.g. BTC-USD, ETH-USD)</li>
+            <li>Choose your <strong>direction</strong> — Long if you think price goes up, Short if it goes down</li>
+            <li>Set your <strong>entry price</strong>, <strong>take profit</strong>, and <strong>stop loss</strong></li>
+            <li>Enter your <strong>position size</strong> in USD and <strong>leverage</strong></li>
+          </ul>
+          Tap <strong>Execute & Log Trade</strong>. Your journal entry is saved and the order fires on your chosen exchange simultaneously.
+          <div class="tip">
+            <div class="tip-label">Start small</div>
+            Your first trade should be a small test — $5–10 with low leverage (2–3x). Get comfortable with the flow before sizing up.
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 7 -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number orange">7</div>
+          <div class="step-title">Set a stop loss</div>
+        </div>
+        <div class="step-body">
+          Every trade should have a stop loss. If you didn't set one during trade creation, do it now:
+          <br><br>
+          Go to the <strong>Open Trades</strong> tab, tap your position, and set a <strong>Stop Loss</strong> price. Ordyn places it as an on-chain trigger order on your exchange — it will execute automatically even if the app is closed.
+          <div class="tip warning">
+            <div class="tip-label">Risk management</div>
+            Trading without a stop loss means you can lose your entire margin. Always set one. Ordyn's discipline system will flag trades without stops.
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 8 -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number orange">8</div>
+          <div class="step-title">Talk to your AI coach</div>
+        </div>
+        <div class="step-body">
+          Once you have a few trades logged, head to the <strong>Coach</strong> tab and ask your AI coach for feedback:
+          <ul>
+            <li><em>"What am I doing wrong?"</em></li>
+            <li><em>"Which setups work best for me?"</em></li>
+            <li><em>"How can I improve my risk management?"</em></li>
+          </ul>
+          The coach analyses your full trade history — entries, exits, P&L, patterns, and timing — and gives personalized advice. It gets better the more trades you log.
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-divider"></div>
+
+    <!-- ═══════════════════════════════════════ SUPPORTED EXCHANGES ═══ -->
+    <div class="phase">
+      <div class="phase-label">Supported Exchanges</div>
+      <h2 class="phase-title">Trade on Multiple DEXs & CEXs</h2>
+
+      <div class="step">
+        <div class="step-body">
+          Ordyn supports trading and journaling across multiple exchanges. One wallet, multiple chains — all managed from a single app.
+          <br><br>
+          <strong>Live now:</strong>
+          <ul>
+            <li><strong>Hyperliquid</strong> — EVM (Arbitrum). Orderbook DEX, up to 50x leverage. Full read + write support with auto-bridging from any EVM chain.</li>
+            <li><strong>gTrade (Gains)</strong> — EVM (Arbitrum, Polygon, Base). Oracle-based synthetic trading. Non-custodial — no deposit required.</li>
+            <li><strong>Bitget</strong> — Centralized exchange. Connect via API keys. Live positions, SL/TP, and PnL sync.</li>
+            <li><strong>Bitunix</strong> — Centralized exchange. Connect via API keys. Live positions, SL/TP, and PnL sync.</li>
+          </ul>
+          <br>
+          <strong>Coming soon:</strong>
+          <ul>
+            <li><strong>Drift</strong> — Solana. Orderbook DEX, up to 20x leverage. <em>Currently paused.</em></li>
+            <li><strong>dYdX v4</strong> — Cosmos chain. Orderbook DEX, up to 100x leverage.</li>
+            <li>More exchanges (GMX, ApeX, Jupiter Perps, Vertex) under evaluation.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-divider"></div>
+
+    <!-- CTA -->
+    <div class="guide-cta">
+      <h2>Ready to start?</h2>
+      <p>Download Ordyn and place your first trade in minutes.</p>
+      <a href="https://play.google.com/store/apps/details?id=com.fermion.ordyn" target="_blank">
+        Get Ordyn on Google Play &rarr;
+      </a>
+      <a href="https://apps.apple.com/app/id6760216016" target="_blank" style="margin-left: 12px;">
+        Get Ordyn on the App Store &rarr;
+      </a>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 Order Dynamics Inc. (Ordyn) &nbsp;|&nbsp; <a href="/privacy">Privacy</a> &nbsp;|&nbsp; <a href="/terms">Terms</a> &nbsp;|&nbsp; <a href="mailto:support@ordyn.io">support@ordyn.io</a></p>
+    <p style="font-size: 11px; color: rgba(255,255,255,0.3); max-width: 600px; margin: 12px auto 0; line-height: 1.5;">
+      Third-party exchanges integrated in Ordyn may not be available in all jurisdictions. Do not use any exchange if it is restricted or prohibited in your country. You are solely responsible for compliance with applicable laws. See our <a href="/terms" style="color: rgba(255,255,255,0.4);">Terms of Service</a> for details.
+    </p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <title>Manage your subscription — Ordyn</title>
+  <meta name="robots" content="noindex">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg:#08090C; --card:#0E1117; --cyan:#00D4FF; --text:#F0F0F0; --dim:#8A8F98; --border:rgba(255,255,255,0.08); --green:#10B981; }
+    html { scroll-behavior: smooth; }
+    html, body { background: var(--bg); color: var(--text); font-family: 'Inter', -apple-system, system-ui, sans-serif; line-height: 1.6; }
+    body { position: relative; overflow-x: hidden; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    body::before { content:''; position: fixed; top: -160px; left: 50%; transform: translateX(-50%); width: 760px; height: 540px; background: radial-gradient(ellipse at center, rgba(0,212,255,0.10), transparent 68%); pointer-events: none; z-index: 0; }
+    body::after { content:''; position: fixed; inset: 0; z-index: 999; pointer-events: none; opacity: 0.018; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); animation: grain 8s steps(10) infinite; }
+    @keyframes grain { 0%,100%{transform:translate(0,0)} 10%{transform:translate(-5%,-10%)} 30%{transform:translate(3%,-15%)} 50%{transform:translate(12%,9%)} 70%{transform:translate(9%,4%)} 90%{transform:translate(-1%,7%)} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:none} }
+    .wrap { max-width: 420px; margin: 0 auto; padding: 64px 20px 40px; text-align: center; position: relative; z-index: 1; }
+    .wrap > * { animation: fadeUp .7s cubic-bezier(.16,1,.3,1) both; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; margin-bottom: 30px; }
+    .brand img { width: 40px; height: 40px; border-radius: 10px; }
+    .brand span { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 19px; color: var(--text); letter-spacing: 0.5px; }
+    h1 { font-family: 'Space Grotesk', sans-serif; font-size: 25px; font-weight: 700; margin-bottom: 10px; }
+    p { color: var(--dim); font-size: 14.5px; margin-bottom: 22px; }
+    input { width: 100%; background: var(--card); border: 1px solid var(--border); border-radius: 11px; padding: 14px 16px; color: var(--text); font-size: 15px; font-family: inherit; margin-bottom: 12px; }
+    input:focus { outline: none; border-color: var(--cyan); }
+    button { width: 100%; background: var(--cyan); color: #000; border: none; border-radius: 11px; padding: 14px; font-size: 15px; font-weight: 700; font-family: inherit; cursor: pointer; box-shadow: 0 0 24px rgba(0,212,255,0.22); transition: box-shadow .25s, transform .1s; }
+    button:hover { box-shadow: 0 0 38px rgba(0,212,255,0.42); }
+    button:active { transform: translateY(1px); }
+    button:disabled { opacity: 0.6; box-shadow: none; }
+    .ghost { background: none; border: 1px solid var(--border); color: var(--dim); box-shadow: none; margin-top: 12px; }
+    .ghost:hover { box-shadow: none; }
+    .notice { background: rgba(0,212,255,0.06); border: 1px solid rgba(0,212,255,0.18); border-radius: 12px; padding: 18px; color: var(--text); font-size: 14.5px; }
+    .ok { background: rgba(16,185,129,0.07); border: 1px solid rgba(16,185,129,0.25); border-radius: 12px; padding: 18px; color: var(--text); font-size: 14.5px; }
+    .err { color: #EF4444; font-size: 13px; min-height: 16px; margin-top: 8px; }
+    .foot { color: #4A4F5A; font-size: 12px; margin-top: 28px; }
+    .foot a { color: var(--dim); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a href="/" class="brand"><img src="/app-icon.png" alt="Ordyn"><span>ORDYN</span></a>
+    <div id="content"><p>Loading…</p></div>
+    <p class="foot">Subscribed in the app instead? Manage it in your device's <b>App Store / Google Play</b> subscriptions. · <a href="mailto:support@ordyn.io">support@ordyn.io</a></p>
+  </div>
+
+  <script>
+    var SUPABASE_URL = 'https://ltucfeezhsomsyrhroug.supabase.co';
+    var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx0dWNmZWV6aHNvbXN5cmhyb3VnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg5NzgzNDUsImV4cCI6MjA2NDU1NDM0NX0.03XrdV09wGyDEzJ1octfAyuM5WVdCIXGWWkatADTLeE';
+    var sb = supabase.createClient(SUPABASE_URL, ANON, { auth: { flowType: 'implicit', detectSessionInUrl: true, persistSession: true, autoRefreshToken: true } });
+    var el = document.getElementById('content');
+    var done = new URLSearchParams(location.search).get('done');
+
+    function loginView(sent, email) {
+      if (sent) {
+        el.innerHTML = '<h1>Check your email 📬</h1><div class="notice">We sent a secure link to <b>' + email.replace(/[<>&]/g,'') + '</b>. Click it to manage your subscription.</div>';
+        return;
+      }
+      el.innerHTML = '<h1>Manage your subscription</h1><p>Enter the email you used at checkout. We’ll send a secure link — no password needed.</p>' +
+        '<input id="email" type="email" placeholder="you@example.com" autocomplete="email" /><button id="send">Email me a secure link</button><p class="err" id="err"></p>';
+      document.getElementById('send').onclick = send;
+      document.getElementById('email').addEventListener('keydown', function(e){ if(e.key==='Enter') send(); });
+    }
+    function send() {
+      var email = (document.getElementById('email').value||'').trim();
+      var err = document.getElementById('err');
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { err.textContent='Enter a valid email.'; return; }
+      var b = document.getElementById('send'); b.disabled = true; b.textContent='Sending…';
+      sb.auth.signInWithOtp({ email: email, options: { emailRedirectTo: location.origin + '/manage' } }).then(function(r){
+        if (r.error){ err.textContent=r.error.message; b.disabled=false; b.textContent='Email me a secure link'; }
+        else loginView(true, email);
+      });
+    }
+
+    function openPortal() {
+      el.innerHTML = '<h1>Opening your billing portal…</h1><p>One moment.</p>';
+      sb.auth.getSession().then(function(r){
+        var token = r.data.session && r.data.session.access_token;
+        return fetch(SUPABASE_URL + '/functions/v1/stripe-portal', {
+          method: 'POST', headers: { 'Authorization': 'Bearer ' + token, 'apikey': ANON, 'Content-Type': 'application/json' }, body: '{}'
+        });
+      }).then(function(res){ return res.json().then(function(d){ return { ok: res.ok, d: d }; }); })
+        .then(function(x){
+          if (x.ok && x.d.url) { location.href = x.d.url; return; }
+          if (x.d && x.d.error === 'no_subscription') {
+            el.innerHTML = '<h1>No web subscription found</h1><div class="notice">We couldn’t find a subscription bought on the web for this email. If you subscribed inside the app, manage it in your device’s App Store / Google Play subscriptions.</div><button class="ghost" id="out">Sign out</button>';
+          } else {
+            el.innerHTML = '<h1>Something went wrong</h1><div class="notice">Please try again, or email support@ordyn.io.</div><button class="ghost" id="out">Sign out</button>';
+          }
+          var o = document.getElementById('out'); if (o) o.onclick = function(){ sb.auth.signOut().then(boot); };
+        });
+    }
+
+    function boot() {
+      if (done) {
+        el.innerHTML = '<h1>You’re all set ✅</h1><div class="ok">Your subscription changes have been saved.</div><button class="ghost" id="out" style="margin-top:16px">Sign out</button>';
+        document.getElementById('out').onclick = function(){ sb.auth.signOut().then(function(){ location.href='/manage'; }); };
+        return;
+      }
+      sb.auth.getSession().then(function(r){ if (!r.data.session) loginView(false); else openPortal(); });
+    }
+    boot();
+  </script>
+</body>
+</html>
