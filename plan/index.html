@@ -282,7 +282,11 @@
     var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx0dWNmZWV6aHNvbXN5cmhyb3VnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg5NzgzNDUsImV4cCI6MjA2NDU1NDM0NX0.03XrdV09wGyDEzJ1octfAyuM5WVdCIXGWWkatADTLeE';
 
     var urlParams = new URLSearchParams(window.location.search);
-    var shortCode = urlParams.get('code');
+    // /p/<code> reaches this page through a Netlify rewrite. A rewrite swaps the content
+    // but leaves the browser on /p/<code>, so the ?code= the rule appends is never in
+    // window.location.search. Read the code off the path first, the query second.
+    var pathMatch = window.location.pathname.match(/^\/p\/([A-Za-z0-9_-]+)\/?$/);
+    var shortCode = (pathMatch && pathMatch[1]) || urlParams.get('code');
     var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
     // On mobile, try to open app IMMEDIATELY (no waiting for Supabase)
