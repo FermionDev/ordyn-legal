@@ -562,12 +562,19 @@
     .screenshots {
       display: flex;
       gap: 14px;
-      justify-content: center;
+      justify-content: flex-start;
       padding: 24px 0 32px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      scroll-behavior: smooth;
     }
+    .screenshots::-webkit-scrollbar { display: none; }
     .screenshot-frame {
-      flex: 0 1 190px;
+      flex: 0 0 190px;
       max-width: 190px;
+      scroll-snap-align: center;
       aspect-ratio: 9 / 19;
       background: var(--bg-card-solid);
       border: 1px solid var(--border);
@@ -587,9 +594,9 @@
       object-fit: cover;
     }
 
-    /* ── CAROUSEL ARROWS (mobile only) ── */
+    /* ── CAROUSEL ARROWS ── */
     .carousel-arrow {
-      display: none;
+      display: flex;
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
@@ -612,12 +619,12 @@
       border-color: var(--cyan-border);
       color: var(--cyan);
     }
-    .carousel-arrow--left { left: -4px; }
-    .carousel-arrow--right { right: -4px; }
+    .carousel-arrow--left { left: -20px; }
+    .carousel-arrow--right { right: -20px; }
 
-    /* ── CAROUSEL DOTS (mobile only) ── */
+    /* ── CAROUSEL DOTS ── */
     .carousel-dots {
-      display: none;
+      display: flex;
       justify-content: center;
       gap: 8px;
       padding-bottom: 12px;
@@ -1005,18 +1012,9 @@
       .hero-buttons { flex-direction: column; width: 100%; max-width: 320px; }
       .btn-primary, .btn-secondary { justify-content: center; width: 100%; }
       .screenshots-wrapper { padding: 0 16px; }
-      .screenshots {
-        justify-content: flex-start;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        scroll-behavior: smooth;
-      }
-      .screenshots::-webkit-scrollbar { display: none; }
-      .screenshot-frame { flex: 0 0 180px; max-width: 180px; scroll-snap-align: center; }
-      .carousel-dots { display: flex; }
-      .carousel-arrow { display: flex; }
+      .screenshot-frame { flex: 0 0 180px; max-width: 180px; }
+      .carousel-arrow--left { left: -4px; }
+      .carousel-arrow--right { right: -4px; }
       section { padding: 80px 16px; }
       .section-title { font-size: clamp(24px, 5vw, 36px); }
       .feature-card { padding: 28px; }
@@ -1101,19 +1099,34 @@
         </button>
         <div class="screenshots" id="screenshotCarousel">
           <div class="screenshot-frame" data-index="0">
-            <img src="/screenshots/performance.jpg" alt="Performance Dashboard" loading="lazy">
+            <img src="/screenshots/plan-market.jpg" alt="Plan Your Trade" loading="lazy">
           </div>
           <div class="screenshot-frame" data-index="1">
-            <img src="/screenshots/discipline.jpg" alt="Discipline Tracking" loading="lazy">
+            <img src="/screenshots/plans.jpg" alt="Plans with Live Chart" loading="lazy">
           </div>
           <div class="screenshot-frame" data-index="2">
-            <img src="/screenshots/trade-log.jpg" alt="Trade Log" loading="lazy">
+            <img src="/screenshots/trade-detail.jpg" alt="Trade Detail" loading="lazy">
           </div>
           <div class="screenshot-frame" data-index="3">
             <img src="/screenshots/ai-coach.jpg" alt="AI Coach" loading="lazy">
           </div>
           <div class="screenshot-frame" data-index="4">
-            <img src="/screenshots/trade-detail.jpg" alt="Trade Detail" loading="lazy">
+            <img src="/screenshots/checklist.jpg" alt="Pre-trade Checklist" loading="lazy">
+          </div>
+          <div class="screenshot-frame" data-index="5">
+            <img src="/screenshots/discipline.jpg" alt="Discipline Tracking" loading="lazy">
+          </div>
+          <div class="screenshot-frame" data-index="6">
+            <img src="/screenshots/plan-setup.jpg" alt="Setup and Confirmation Alert" loading="lazy">
+          </div>
+          <div class="screenshot-frame" data-index="7">
+            <img src="/screenshots/performance.jpg" alt="Performance Dashboard" loading="lazy">
+          </div>
+          <div class="screenshot-frame" data-index="8">
+            <img src="/screenshots/patterns.jpg" alt="Pattern Library" loading="lazy">
+          </div>
+          <div class="screenshot-frame" data-index="9">
+            <img src="/screenshots/trade-log.jpg" alt="Trade Log" loading="lazy">
           </div>
         </div>
       </div>
@@ -1123,6 +1136,11 @@
         <button class="carousel-dot" data-index="2" aria-label="Screenshot 3"></button>
         <button class="carousel-dot" data-index="3" aria-label="Screenshot 4"></button>
         <button class="carousel-dot" data-index="4" aria-label="Screenshot 5"></button>
+        <button class="carousel-dot" data-index="5" aria-label="Screenshot 6"></button>
+        <button class="carousel-dot" data-index="6" aria-label="Screenshot 7"></button>
+        <button class="carousel-dot" data-index="7" aria-label="Screenshot 8"></button>
+        <button class="carousel-dot" data-index="8" aria-label="Screenshot 9"></button>
+        <button class="carousel-dot" data-index="9" aria-label="Screenshot 10"></button>
       </div>
     </div>
   </section>
@@ -1411,6 +1429,9 @@
           const dist = Math.abs(frame.offsetLeft + frame.offsetWidth / 2 - center);
           if (dist < minDist) { minDist = dist; closest = i; }
         });
+        // Several frames fit on desktop, so the outer ones never reach the centre
+        if (carousel.scrollLeft <= 2) closest = 0;
+        else if (carousel.scrollLeft >= carousel.scrollWidth - carousel.clientWidth - 2) closest = frames.length - 1;
         dots.forEach((d, i) => d.classList.toggle('active', i === closest));
       }, 50);
     });
